@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from peewee import *
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
-from controllers import get_all_itemlists
+from controllers import get_all_itemlists, create_itemlist
 from models import ItemList, Item
 
 app = Flask(__name__)
@@ -24,8 +24,6 @@ def get_all_lists():
 def create_list():
     body = request.get_json()
 
-    itemlist = ItemList.create(
-        name=body['name']
-    )
+    itemlist = create_itemlist(body)
 
     return jsonify(model_to_dict(itemlist)), 201
