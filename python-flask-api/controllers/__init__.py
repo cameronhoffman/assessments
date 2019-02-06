@@ -1,1 +1,1 @@
-from .itemlist_controller import get_all_itemlists, create_itemlist
+from .itemlist_controller import itemlist_controller

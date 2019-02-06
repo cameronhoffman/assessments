@@ -1,9 +1,12 @@
 from models import ItemList
 
-def get_all_itemlists():
-    return ItemList.select()
+class ItemListController():
+    def get_all_itemlists(self):
+        return ItemList.select()
 
-def create_itemlist(body):
-    return ItemList.create(
-        name=body['name']
-    )
+    def create_itemlist(self, body):
+        return ItemList.create(
+            name=body['name']
+        )
+
+itemlist_controller = ItemListController()
