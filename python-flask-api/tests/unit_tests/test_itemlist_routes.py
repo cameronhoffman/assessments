@@ -28,11 +28,6 @@ class TestItemlistRoutes:
         itemlist = json.loads(response.data)
         assert itemlist['name'] == 'Test'
 
-    def test_get_all_itemlists(self):
-        response = client.get('/lists')
-        itemlists = json.loads(response.data)
-        assert len(itemlists) == 2
-
     def test_create_itemlist_failure(self):
         body = { 'name': None }
         response = client.post('/lists', json=body)
@@ -70,4 +65,5 @@ class TestItemlistRoutes:
         itemlist_id = ItemList.select().get().id
 
         client.delete('/lists/{}'.format(itemlist_id))
-        assert True
+        with pytest.raises(DoesNotExist):
+            assert ItemList.get_by_id(itemlist_id)
