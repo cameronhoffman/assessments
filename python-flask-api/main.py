@@ -15,7 +15,7 @@ def healthcheck():
     return 'ok'
 
 @app.route('/lists')
-def get_all_lists():
+def get_all_itemlists():
     item_lists = get_all_itemlists()
 
     return jsonify(model_array_to_list(item_lists))
