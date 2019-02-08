@@ -5,7 +5,7 @@ import pytest
 from db import seed
 from models import ItemList, Item
 
-from main import app
+from main import app, WebError
 
 client = app.test_client()
 
@@ -34,8 +34,7 @@ class TestItemRoutes:
         body = { 'name': None }
         response = client.post('/items', json=body)
 
-        with pytest.raises(Exception):
-            item = json.loads(response.data)
+        assert response.status_code == 422
 
     def test_update_item_success(self):
         item_id = Item.select().get().id
@@ -51,12 +50,11 @@ class TestItemRoutes:
         body = { 'name': None }
         response = client.put('/items/{}'.format(item_id), json=body)
 
-        with pytest.raises(Exception):
-            item = json.loads(response.data)
+        assert response.status_code == 422
 
     def test_delete_item(self):
         item_id = Item.select().get().id
 
-        client.delete('/items/{}'.format(item_id))
-        with pytest.raises(DoesNotExist):
-            assert Item.get_by_id(item_id)
+        response = client.delete('/items/{}'.format(item_id))
+
+        assert response.status_code == 404

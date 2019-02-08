@@ -5,6 +5,18 @@ from playhouse.shortcuts import model_to_dict, dict_to_model
 from controllers import itemlist_controller
 from models import ItemList, Item
 
+class WebError(ValueError):
+    """A custom error around ValueError to provide a message and an http status code"""
+    def __init__(self, message, http_code):
+        """Creates a WebError
+
+        :param message: The message about the error
+        :param http_code: The http return code related to this error
+        """
+        super().__init__(message)
+        self.message = message
+        self.http_code = http_code
+
 app = Flask(__name__)
 
 def model_array_to_list(array):
@@ -31,6 +43,10 @@ def create_list():
     """Creates a list based on the request body"""
     body = request.get_json()
 
+    # Right now, this function tries to create an ItemList immediately, but it
+    # will fail if the body isn't valid.
+    # You need to handle this situation appropriately and exit the function
+    # early, return a 422 error code, and include an appropriate message.
     itemlist = itemlist_controller.create_itemlist(body)
 
     return jsonify(model_to_dict(itemlist)), 201
