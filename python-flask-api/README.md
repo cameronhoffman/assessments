@@ -24,7 +24,8 @@ The server will error if invalid data is passed in - which is not okay. Please f
 this route.
 
 All data is stored in a SQLite database, and we have also conveniently forgotten to
-add a field that tracks whether an item is complete. You'll have to do that too!
+add a field that tracks whether an item is complete (which should default to
+`false` if it is not set). You'll have to do that too!
 
 The database is stored in `db/todo.db` (after you copy it, that is. See the
 Installation notes for more details).
@@ -38,8 +39,9 @@ Make that repo public.
 Make all the tests pass!
 
 This includes:
-* Adding a new `is_complete` `BOOL` value to the database
-* Making sure all of the routes return valid responses and status codes
+* Adding a new `is_complete` `BOOL` value to the database which defaults to
+  `false`.
+* Making sure all of the routes return valid responses and status codes.
 
 
 ## Installation

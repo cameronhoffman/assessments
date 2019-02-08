@@ -30,6 +30,18 @@ class TestItemRoutes:
         item = json.loads(response.data)
         assert item['name'] == 'Test'
 
+    def test_create_item_is_complete_default_success(self):
+        body = { 'name': 'Test' }
+        response = client.post('/items', json=body)
+        item = json.loads(response.data)
+        assert item['is_complete'] == False
+
+    def test_create_item_is_complete_success(self):
+        body = { 'name': 'Test' , 'is_complete': True }
+        response = client.post('/items', json=body)
+        item = json.loads(response.data)
+        assert item['is_complete'] == True
+
     def test_create_item_failure(self):
         body = { 'name': None }
         response = client.post('/items', json=body)
