@@ -5,7 +5,7 @@ import pytest
 from db import seed
 from models import ItemList, Item
 
-from main import app, WebError
+from main import app
 
 client = app.test_client()
 

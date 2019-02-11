@@ -5,18 +5,6 @@ from playhouse.shortcuts import model_to_dict, dict_to_model
 from controllers import itemlist_controller
 from models import ItemList, Item
 
-class WebError(ValueError):
-    """A custom error around ValueError to provide a message and an http status code"""
-    def __init__(self, message, http_code):
-        """Creates a WebError
-
-        :param message: The message about the error
-        :param http_code: The http return code related to this error
-        """
-        super().__init__(message)
-        self.message = message
-        self.http_code = http_code
-
 app = Flask(__name__)
 
 def model_array_to_list(array):
